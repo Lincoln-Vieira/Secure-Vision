@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Secure Vision</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        color: white;
+        background:
+          linear-gradient(rgba(3, 13, 15, 0.35), rgba(3, 13, 15, 0.5)),
+          url("/fundo-monitoramento.jpg") center center / cover no-repeat;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 410px;
+        padding: 38px 35px;
+        background: rgba(10, 27, 26, 0.94);
+        border: 1px solid rgba(0, 220, 160, 0.25);
+        border-radius: 14px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      .logo {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+
+      .logo h1 {
+        font-size: 27px;
+        color: #35d6a0;
+        letter-spacing: 1px;
+      }
+
+      .logo p {
+        margin-top: 8px;
+        color: #a5b8b5;
+        font-size: 13px;
+      }
+
+      .titulo {
+        font-size: 23px;
+        margin-bottom: 9px;
+      }
+
+      .subtitulo {
+        color: #a5b8b5;
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 27px;
+      }
+
+      .campo {
+        margin-bottom: 19px;
+      }
+
+      label {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 9px;
+        color: #dce8e5;
+      }
+
+      input {
+        width: 100%;
+        padding: 14px;
+        background: rgba(3, 15, 15, 0.85);
+        border: 1px solid #31514a;
+        border-radius: 7px;
+        color: white;
+        outline: none;
+        font-size: 14px;
+      }
+
+      input:focus {
+        border-color: #35d6a0;
+        box-shadow: 0 0 7px rgba(53, 214, 160, 0.2);
+      }
+
+      .botao {
+        width: 100%;
+        padding: 14px;
+        margin-top: 9px;
+        background: #159f7d;
+        color: white;
+        border: 0;
+        border-radius: 7px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .botao:hover {
+        background: #19b58e;
+      }
+
+      .botao:disabled {
+        opacity: 0.7;
+        cursor: wait;
+      }
+
+      .mensagem {
+        display: none;
+        margin-top: 16px;
+        padding: 11px;
+        border-radius: 7px;
+        font-size: 13px;
+        line-height: 1.5;
+        text-align: center;
+      }
+
+      .mensagem.erro {
+        display: block;
+        color: #ffb5b5;
+        background: rgba(180, 30, 30, 0.18);
+        border: 1px solid rgba(255, 80, 80, 0.3);
+      }
+
+      .voltar {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        font-size: 13px;
+        color: #a5b8b5;
+        text-decoration: none;
+      }
+
+      .voltar:hover {
+        color: #35d6a0;
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 30px 23px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="logo">
+        <h1>SECURE VISION</h1>
+        <p>Segurança inteligente e monitoramento</p>
+      </div>
+
+      <h2 class="titulo">Bem-vindo de volta</h2>
+
+      <p class="subtitulo">Entre com seus dados para acessar sua conta.</p>
+
+      <form id="loginForm" method="POST" action="/login">
+        <div class="campo">
+          <label for="email">E-mail</label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="seu@email.com"
+            autocomplete="username"
+            required
+          />
+        </div>
+
+        <div class="campo">
+          <label for="senha">Senha</label>
+          <input
+            type="password"
+            id="senha"
+            name="senha"
+            placeholder="Digite sua senha"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <button type="submit" class="botao" id="botaoEntrar">Entrar</button>
+
+        <div id="mensagem" class="mensagem"></div>
+      </form>
+
+      <a href="index.html" class="voltar"> ← Voltar para a página inicial </a>
+    </div>
+
+    <script>
+      const formulario = document.getElementById("loginForm");
+      const mensagem = document.getElementById("mensagem");
+      const botao = document.getElementById("botaoEntrar");
+
+      const parametros = new URLSearchParams(window.location.search);
+
+      if (parametros.has("erro")) {
+        mensagem.textContent = "E-mail ou senha inválidos.";
+        mensagem.className = "mensagem erro";
+      }
+
+      if (parametros.has("logout")) {
+        mensagem.textContent = "Você saiu da sua conta.";
+        mensagem.className = "mensagem erro";
+      }
+
+      formulario.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        mensagem.textContent = "";
+        mensagem.className = "mensagem";
+        botao.disabled = true;
+        botao.textContent = "Entrando...";
+
+        try {
+          const respostaCsrf = await fetch("/csrf");
+
+          if (!respostaCsrf.ok) {
+            throw new Error("Não foi possível obter o token de segurança.");
+          }
+
+          const csrf = await respostaCsrf.json();
+
+          let campoCsrf = formulario.querySelector('input[name="_csrf"]');
+
+          if (!campoCsrf) {
+            campoCsrf = document.createElement("input");
+            campoCsrf.type = "hidden";
+            campoCsrf.name = "_csrf";
+            formulario.appendChild(campoCsrf);
+          }
+
+          campoCsrf.value = csrf.token;
+
+          formulario.submit();
+        } catch (erro) {
+          mensagem.textContent = erro.message;
+          mensagem.className = "mensagem erro";
+          botao.disabled = false;
+          botao.textContent = "Entrar";
+        }
+      });
+    </script>
+  </body>
+</html>

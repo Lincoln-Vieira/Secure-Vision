@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Vision | Alertas</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #071510;
+      color: #f1f5f3;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    aside {
+      width: 240px;
+      flex-shrink: 0;
+      background: #091d16;
+      border-right: 1px solid #183b2e;
+      padding: 28px 18px;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+
+    .logo span {
+      color: #35d6a0;
+    }
+
+    nav a {
+      display: block;
+      color: #a8bbb2;
+      text-decoration: none;
+      padding: 13px 14px;
+      margin-bottom: 7px;
+      border-radius: 7px;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: #123c2c;
+      color: #35dda6;
+    }
+
+    main {
+      flex: 1;
+      min-width: 0;
+      padding: 35px;
+    }
+
+    header {
+      margin-bottom: 30px;
+    }
+
+    header p {
+      color: #8ca69a;
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    .painel {
+      background: #10251c;
+      border: 1px solid #1b4030;
+      border-radius: 10px;
+      padding: 25px;
+    }
+
+    .painel h3 {
+      margin-bottom: 20px;
+    }
+
+    .alerta {
+      padding: 18px 0;
+      border-bottom: 1px solid #244033;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .alerta:last-child {
+      border: 0;
+    }
+
+    .alerta p {
+      color: #a8bbb2;
+      font-size: 13px;
+      margin-top: 7px;
+      overflow-wrap: anywhere;
+    }
+
+    .badge {
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .aviso {
+      background: #392d18;
+      color: #e8bd6d;
+    }
+
+    .vazio,
+    .erro {
+      color: #a8bbb2;
+      font-size: 14px;
+      padding: 20px 0;
+    }
+
+    .erro {
+      color: #e8bd6d;
+    }
+
+    @media (max-width: 650px) {
+      body {
+        display: block;
+      }
+
+      aside {
+        width: 100%;
+        padding: 18px;
+      }
+
+      .logo {
+        margin-bottom: 15px;
+      }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      nav a {
+        padding: 10px;
+        margin: 3px;
+      }
+
+      main {
+        padding: 22px;
+      }
+
+      .alerta {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <aside>
+    <div class="logo">SECURE <span>VISION</span></div>
+
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="cameras.html">Câmeras</a>
+      <a href="monitoramento.html">Monitoramento</a>
+      <a href="alertas.html" class="active">Alertas</a>
+      <a href="configuracoes.html">Configurações</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+      <a href="#" onclick="return realizarLogout(event)">Sair</a>
+    </nav>
+  </aside>
+
+  <main>
+    <header>
+      <h1>Alertas</h1>
+      <p>Acompanhe os avisos e notificações do sistema.</p>
+    </header>
+
+    <section class="painel">
+      <h3>Histórico de alertas</h3>
+      <div id="lista-alertas" class="vazio">
+        Carregando histórico de alertas...
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const listaAlertas = document.getElementById("lista-alertas");
+
+    function criarElemento(tag, classe, texto) {
+      const elemento = document.createElement(tag);
+
+      if (classe) {
+        elemento.className = classe;
+      }
+
+      elemento.textContent = texto;
+      return elemento;
+    }
+
+    function mostrarEstado(texto, classe) {
+      listaAlertas.replaceChildren(
+        criarElemento("p", classe, texto)
+      );
+    }
+
+    function exibirAlertas(alertas) {
+      listaAlertas.replaceChildren();
+
+      if (!Array.isArray(alertas) || alertas.length === 0) {
+        mostrarEstado(
+          "Nenhum alerta registrado até o momento.",
+          "vazio"
+        );
+        return;
+      }
+
+      alertas.forEach((alerta) => {
+        const item = document.createElement("div");
+        item.className = "alerta";
+
+        const informacoes = document.createElement("div");
+
+        informacoes.appendChild(
+          criarElemento(
+            "strong",
+            "",
+            "Câmera " + alerta.nu_seg_camera
+          )
+        );
+
+        informacoes.appendChild(
+          criarElemento(
+            "p",
+            "",
+            alerta.no_seg_mensagem_alerta || "Alerta sem descrição."
+          )
+        );
+
+        const data = new Date(alerta.ts_seg_alerta_criado);
+
+        informacoes.appendChild(
+          criarElemento(
+            "p",
+            "",
+            Number.isNaN(data.getTime())
+              ? "Data não disponível"
+              : data.toLocaleString("pt-BR")
+          )
+        );
+
+        const etiqueta = criarElemento("span", "badge aviso", "Alerta");
+
+        item.appendChild(informacoes);
+        item.appendChild(etiqueta);
+
+        listaAlertas.appendChild(item);
+      });
+    }
+
+    async function carregarAlertas() {
+      try {
+        const resposta = await fetch("/alertas", {
+          method: "GET",
+          credentials: "same-origin",
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        if (resposta.status === 401 || resposta.redirected) {
+          mostrarEstado(
+            "Sua sessão pode ter expirado. Faça login novamente.",
+            "erro"
+          );
+          return;
+        }
+
+        if (!resposta.ok) {
+          throw new Error("Falha ao consultar os alertas.");
+        }
+
+        const alertas = await resposta.json();
+        exibirAlertas(alertas);
+
+      } catch (erro) {
+        console.error("Erro ao carregar alertas:", erro);
+
+        mostrarEstado(
+          "Não foi possível carregar o histórico. Tente atualizar a página.",
+          "erro"
+        );
+      }
+    }
+
+    carregarAlertas();
+    setInterval(carregarAlertas, 15000);
+  </script>
+    <script src="/logout.js"></script>
+</body>
+</html>
+

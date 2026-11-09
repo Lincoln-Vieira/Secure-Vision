@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro | Secure Vision</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        color: white;
+        background:
+          linear-gradient(rgba(3, 13, 15, 0.35), rgba(3, 13, 15, 0.5)),
+          url("/fundo-monitoramento.jpg") center center / cover no-repeat;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 430px;
+        padding: 35px;
+        background: rgba(10, 27, 26, 0.94);
+        border: 1px solid rgba(0, 220, 160, 0.25);
+        border-radius: 14px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      .logo {
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      .logo h1 {
+        font-size: 27px;
+        color: #35d6a0;
+        letter-spacing: 1px;
+      }
+
+      .logo p {
+        margin-top: 8px;
+        color: #a5b8b5;
+        font-size: 13px;
+      }
+
+      h2 {
+        font-size: 23px;
+        margin-bottom: 9px;
+      }
+
+      .subtitulo {
+        color: #a5b8b5;
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 24px;
+      }
+
+      .campo {
+        margin-bottom: 17px;
+      }
+
+      label {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 8px;
+        color: #dce8e5;
+      }
+
+      input {
+        width: 100%;
+        padding: 13px;
+        background: rgba(3, 15, 15, 0.85);
+        border: 1px solid #31514a;
+        border-radius: 7px;
+        color: white;
+        outline: none;
+        font-size: 14px;
+      }
+
+      input:focus {
+        border-color: #35d6a0;
+        box-shadow: 0 0 7px rgba(53, 214, 160, 0.2);
+      }
+
+      .botao {
+        width: 100%;
+        padding: 14px;
+        margin-top: 8px;
+        background: #159f7d;
+        color: white;
+        border: 0;
+        border-radius: 7px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .botao:hover {
+        background: #19b58e;
+      }
+
+      .botao:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .mensagem {
+        display: none;
+        margin-top: 15px;
+        padding: 12px;
+        border-radius: 7px;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .mensagem.sucesso {
+        display: block;
+        color: #35dda6;
+        background: rgba(53, 221, 166, 0.1);
+        border: 1px solid rgba(53, 221, 166, 0.3);
+      }
+
+      .mensagem.erro {
+        display: block;
+        color: #ff9999;
+        background: rgba(255, 80, 80, 0.1);
+        border: 1px solid rgba(255, 80, 80, 0.3);
+      }
+
+      .login,
+      .voltar {
+        text-align: center;
+        margin-top: 22px;
+        color: #a5b8b5;
+        font-size: 14px;
+      }
+
+      .login a,
+      .voltar a {
+        color: #35d6a0;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .voltar {
+        display: block;
+        text-align: center;
+        margin-top: 25px;
+        font-size: 13px;
+        color: #a5b8b5;
+        text-decoration: none;
+        font-weight: normal;
+      }
+
+      .voltar:hover {
+        color: #35d6a0;
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 28px 22px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="logo">
+        <h1>SECURE VISION</h1>
+        <p>Segurança inteligente e monitoramento</p>
+      </div>
+
+      <h2>Crie uma conta</h2>
+
+      <p class="subtitulo">
+        Preencha os dados para cadastrar um novo usuário na plataforma.
+      </p>
+
+      <form id="cadastroForm">
+        <div class="campo">
+          <label for="nome">Nome completo</label>
+          <input
+            type="text"
+            id="nome"
+            placeholder="Digite o nome completo"
+            required
+          />
+        </div>
+
+        <div class="campo">
+          <label for="email">E-mail</label>
+          <input type="text" id="email" placeholder="seu@email.com" required />
+        </div>
+
+        <div class="campo">
+          <label for="senha">Senha</label>
+          <input
+            type="password"
+            id="senha"
+            placeholder="Mínimo de 8 caracteres"
+            minlength="8"
+            required
+          />
+        </div>
+
+        <div class="campo">
+          <label for="confirmarSenha">Confirmar senha</label>
+          <input
+            type="password"
+            id="confirmarSenha"
+            placeholder="Digite a senha novamente"
+            required
+          />
+        </div>
+
+        <button type="submit" class="botao" id="botaoCadastro">
+          Criar conta
+        </button>
+
+        <div id="mensagem" class="mensagem" role="status"></div>
+      </form>
+
+      <div class="login">
+        Já possui uma conta? <a href="login.html">Entrar</a>
+      </div>
+
+      <a href="index.html" class="voltar">Voltar para a página inicial</a>
+    </div>
+
+    <script>
+      const formulario = document.getElementById("cadastroForm");
+      const mensagem = document.getElementById("mensagem");
+      const botao = document.getElementById("botaoCadastro");
+
+      function mostrarMensagem(texto, tipo) {
+        mensagem.textContent = texto;
+        mensagem.className = "mensagem " + tipo;
+      }
+
+      formulario.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const nome = document.getElementById("nome").value.trim();
+        const email = document.getElementById("email").value.trim();
+
+        // Todo cadastro público será de Cliente.
+        const tipoUsuario = 2;
+
+        const senha = document.getElementById("senha").value;
+        const confirmarSenha = document.getElementById("confirmarSenha").value;
+
+        if (senha !== confirmarSenha) {
+          mostrarMensagem("As senhas não coincidem.", "erro");
+          return;
+        }
+
+        if (senha.length < 8) {
+          mostrarMensagem(
+            "A senha precisa ter pelo menos 8 caracteres.",
+            "erro",
+          );
+          return;
+        }
+
+        botao.disabled = true;
+        botao.textContent = "Cadastrando...";
+        mensagem.className = "mensagem";
+
+        try {
+          const respostaCsrf = await fetch("/csrf");
+
+          if (!respostaCsrf.ok) {
+            throw new Error("Não foi possível validar a segurança da sessão.");
+          }
+
+          const csrf = await respostaCsrf.json();
+
+          const resposta = await fetch("/api/cadastro", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              [csrf.headerName]: csrf.token,
+            },
+            body: JSON.stringify({
+              nome: nome,
+              email: email,
+              senha: senha,
+            }),
+          });
+
+          const resultado = await resposta.json();
+
+          if (!resposta.ok) {
+            mostrarMensagem(
+              resultado.mensagem || "Não foi possível cadastrar o usuário.",
+              "erro",
+            );
+            return;
+          }
+
+          mostrarMensagem(resultado.mensagem, "sucesso");
+          formulario.reset();
+        } catch (erro) {
+          mostrarMensagem(
+            erro.message || "Erro ao comunicar com o servidor.",
+            "erro",
+          );
+        } finally {
+          botao.disabled = false;
+          botao.textContent = "Criar conta";
+        }
+      });
+    </script>
+  </body>
+</html>

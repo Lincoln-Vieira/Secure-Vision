@@ -1,0 +1,202 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secure Vision | Sobre</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #071510;
+        color: #f1f5f3;
+        display: flex;
+        min-height: 100vh;
+      }
+
+      aside {
+        width: 240px;
+        flex-shrink: 0;
+        background: #091d16;
+        border-right: 1px solid #183b2e;
+        padding: 28px 18px;
+      }
+
+      .logo {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 40px;
+      }
+
+      .logo span {
+        color: #35d6a0;
+      }
+
+      nav a {
+        display: block;
+        color: #a8bbb2;
+        text-decoration: none;
+        padding: 13px 14px;
+        margin-bottom: 7px;
+        border-radius: 7px;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      nav a:hover,
+      nav a.active {
+        background: #123c2c;
+        color: #35dda6;
+      }
+
+      main {
+        flex: 1;
+        min-width: 0;
+        padding: 35px;
+      }
+
+      header {
+        margin-bottom: 30px;
+      }
+
+      header p {
+        color: #8ca69a;
+        margin-top: 8px;
+        font-size: 14px;
+      }
+
+      .conteudo {
+        max-width: 950px;
+        background: #10251c;
+        border: 1px solid #1b4030;
+        border-radius: 10px;
+        padding: 30px;
+        line-height: 1.8;
+      }
+
+      .conteudo h2 {
+        color: #35d6a0;
+        margin: 25px 0 10px;
+      }
+
+      .conteudo h2:first-child {
+        margin-top: 0;
+      }
+
+      .conteudo p {
+        color: #bdcdc5;
+        margin-bottom: 12px;
+      }
+
+      .destaque {
+        margin-top: 25px;
+        padding: 20px;
+        background: #123c2c;
+        border-left: 4px solid #35d6a0;
+        border-radius: 8px;
+      }
+
+      .destaque h2 {
+        margin-top: 0;
+      }
+
+      @media (max-width: 650px) {
+        body {
+          display: block;
+        }
+
+        aside {
+          width: 100%;
+          padding: 18px;
+        }
+
+        .logo {
+          margin-bottom: 15px;
+        }
+
+        nav {
+          display: flex;
+          flex-wrap: wrap;
+        }
+
+        nav a {
+          padding: 10px;
+          margin: 3px;
+        }
+
+        main {
+          padding: 22px;
+        }
+
+        .conteudo {
+          padding: 22px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <aside>
+      <div class="logo">SECURE <span>VISION</span></div>
+
+      <nav>
+    <a href="index.html">Início</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="alertas.html">Alertas</a>
+    <a href="monitoramento.html">Monitoramento</a>
+    <a href="cameras.html">Câmeras</a>
+    <a href="configuracoes.html">Configurações</a>
+    <a href="sobre.html" class="active">Sobre</a>
+    <a href="contato.html" class="">Contato</a>
+    <a href="cadastro.html">Criar conta</a>
+    <a href="login.html">Entrar</a>
+</nav>
+    </aside>
+
+    <main>
+      <header>
+        <h1>Sobre a Secure Vision</h1>
+        <p>Conheça nossa plataforma de monitoramento e segurança.</p>
+      </header>
+
+      <section class="conteudo">
+        <h2>Quem somos</h2>
+        <p>
+          A Secure Vision é uma proposta de plataforma voltada ao monitoramento
+          de ambientes por meio de câmeras de segurança, buscando oferecer uma
+          experiência simples, organizada e intuitiva para seus usuários.
+        </p>
+
+        <h2>Nossa proposta</h2>
+        <p>
+          Nosso objetivo é reunir informações de monitoramento em um único
+          ambiente, facilitando o acompanhamento das câmeras, a visualização de
+          alertas e o gerenciamento das configurações.
+        </p>
+
+        <h2>Principais recursos</h2>
+        <p>
+          A plataforma possui áreas destinadas ao painel principal, câmeras,
+          monitoramento, histórico de alertas e configurações. Esses recursos
+          foram organizados para facilitar a navegação e o acompanhamento das
+          informações.
+        </p>
+
+        <div class="destaque">
+          <h2>Nosso compromisso</h2>
+          <p>
+            Desenvolver uma experiência de monitoramento acessível, organizada e
+            focada em tecnologia e segurança.
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
+

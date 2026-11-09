@@ -1,0 +1,249 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secure Vision | Contato</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #071510;
+        color: #f1f5f3;
+        display: flex;
+        min-height: 100vh;
+      }
+
+      aside {
+        width: 240px;
+        flex-shrink: 0;
+        background: #091d16;
+        border-right: 1px solid #183b2e;
+        padding: 28px 18px;
+      }
+
+      .logo {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 40px;
+      }
+
+      .logo span {
+        color: #35d6a0;
+      }
+
+      nav a {
+        display: block;
+        color: #a8bbb2;
+        text-decoration: none;
+        padding: 13px 14px;
+        margin-bottom: 7px;
+        border-radius: 7px;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      nav a:hover,
+      nav a.active {
+        background: #123c2c;
+        color: #35dda6;
+      }
+
+      main {
+        flex: 1;
+        min-width: 0;
+        padding: 35px;
+      }
+
+      header {
+        margin-bottom: 30px;
+      }
+
+      header p {
+        color: #8ca69a;
+        margin-top: 8px;
+        font-size: 14px;
+      }
+
+      .painel {
+        max-width: 700px;
+        background: #10251c;
+        border: 1px solid #1b4030;
+        border-radius: 10px;
+        padding: 25px;
+      }
+
+      .campo {
+        margin-bottom: 18px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: #dce8e5;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 13px;
+        background: #091811;
+        border: 1px solid #31514a;
+        border-radius: 7px;
+        color: white;
+        font-size: 14px;
+        outline: none;
+      }
+
+      input:focus,
+      textarea:focus {
+        border-color: #35d6a0;
+      }
+
+      textarea {
+        min-height: 130px;
+        resize: vertical;
+      }
+
+      button {
+        padding: 12px 20px;
+        background: #35d6a0;
+        color: #06150f;
+        border: 0;
+        border-radius: 7px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #63e7bb;
+      }
+
+      @media (max-width: 650px) {
+        body {
+          display: block;
+        }
+
+        aside {
+          width: 100%;
+          padding: 18px;
+        }
+
+        .logo {
+          margin-bottom: 15px;
+        }
+
+        nav {
+          display: flex;
+          flex-wrap: wrap;
+        }
+
+        nav a {
+          padding: 10px;
+          margin: 3px;
+        }
+
+        main {
+          padding: 22px;
+        }
+
+        .painel {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <aside>
+      <div class="logo">SECURE <span>VISION</span></div>
+
+      <nav>
+    <a href="index.html">Início</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="alertas.html">Alertas</a>
+    <a href="monitoramento.html">Monitoramento</a>
+    <a href="cameras.html">Câmeras</a>
+    <a href="configuracoes.html">Configurações</a>
+    <a href="sobre.html" class="">Sobre</a>
+    <a href="contato.html" class="active">Contato</a>
+    <a href="cadastro.html">Criar conta</a>
+    <a href="login.html">Entrar</a>
+</nav>
+    </aside>
+
+    <main>
+      <header>
+        <h1>Contato</h1>
+        <p>Entre em contato com a equipe Secure Vision.</p>
+      </header>
+
+      <section class="painel">
+        <form id="contatoForm">
+          <div class="campo">
+            <label for="nome">Nome</label>
+            <input
+              type="text"
+              id="nome"
+              placeholder="Digite seu nome"
+              required
+            />
+          </div>
+
+          <div class="campo">
+            <label for="email">E-mail</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="seu@email.com"
+              required
+            />
+          </div>
+
+          <div class="campo">
+            <label for="assunto">Assunto</label>
+            <input
+              type="text"
+              id="assunto"
+              placeholder="Assunto da mensagem"
+              required
+            />
+          </div>
+
+          <div class="campo">
+            <label for="mensagem">Mensagem</label>
+            <textarea
+              id="mensagem"
+              placeholder="Digite sua mensagem"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit">Enviar mensagem</button>
+        </form>
+      </section>
+    </main>
+
+    <script>
+      document
+        .getElementById("contatoForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          alert(
+            "Mensagem preenchida! O envio será integrado ao sistema posteriormente.",
+          );
+
+          this.reset();
+        });
+    </script>
+  </body>
+</html>
+

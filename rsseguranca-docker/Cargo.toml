@@ -1,0 +1,22 @@
+﻿[package]
+name = "rsseguranca-docker"
+version = "0.1.0"
+edition = "2021"
+
+
+[dependencies]
+gstreamer = "0.22"
+gstreamer-app = "0.22"
+gstreamer-video = "0.22"
+axum = "0.7"
+tokio = { version = "1.0", features = ["full"] }
+futures-util = "0.3"
+async-stream = "0.3"
+lapin = "2.3.1"            # Cliente RabbitMQ assíncrono para Rust
+sqlx = { version = "0.8", features = ["postgres", "runtime-tokio", "tls-rustls"] }
+dotenvy = "0.15"
+glib = "0.22.10"
+tokio-stream = { version = "0.1.19", features = ["sync"] }
+tower-http = { version = "0.7.1", features = ["fs"] }
+
+

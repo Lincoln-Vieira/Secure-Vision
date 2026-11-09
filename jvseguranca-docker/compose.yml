@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  # =========================================================================
+  # 1. API do WhatsApp (Evolution API v2.3.7)
+  # =========================================================================
+  whatsapp-api:
+    image: evoapicloud/evolution-api:v2.3.7
+    container_name: whatsapp-api
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_PORT: "8080"
+      SERVER_URL: "http://host.docker.internal:8080"
+      AUTHENTICATION_TYPE: "apikey"
+      AUTHENTICATION_API_KEY: "admseguranca"
+      API_KEY: "admseguranca"
+
+      DATABASE_ENABLED: "true"
+      DATABASE_PROVIDER: "postgresql"
+      DATABASE_CONNECTION_URI: "postgresql://admseguranca:admseguranca@host.docker.internal:5432/dbseguranca"
+      DATABASE_SAVE_DATA_INSTANCE: "true"
+      DATABASE_SAVE_DATA_NEW_MESSAGE: "true"
+      DATABASE_SAVE_MESSAGE_UPDATE: "true"
+
+      CACHE_REDIS_ENABLED: "false"
+      CONFIG_SESSION_PHONE_VERSION: "2.3000.1023204200"
+      DEL_INSTANCE: "false"
+
+      WEBHOOK_GLOBAL_ENABLED: "true"
+      WEBHOOK_GLOBAL_URL: "http://spring-app:8085/api/whatsapp/webhook"
+      WEBHOOK_EVENTS_APPLICATION_STARTUP: "false"
+      WEBHOOK_EVENTS_MESSAGES_UPSERT: "true"
+      WEBHOOK_EVENTS_MESSAGES_UPDATE: "true"
+      WEBHOOK_EVENTS_INSTANCES_UPSERT: "true"
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    volumes:
+      - whatsapp_instances:/evolution/instances
+
+    networks:
+      - seguranca-network
+
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:8080').then(r => r.ok ? process.exit(0) : process.exit(1)).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  # =========================================================================
+  # 2. Aplicação Java Spring Boot
+  # =========================================================================
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: spring-app
+    restart: always
+
+    ports:
+      - "8085:8085"
+
+    working_dir: /app
+
+    command: mvn org.springframework.boot:spring-boot-maven-plugin:3.5.16:run
+
+    environment:
+      EVOLUTION_API_URL: "http://whatsapp-api:8080"
+      EVOLUTION_API_INSTANCE: "wpseguranca"
+      EVOLUTION_API_TOKEN: "admseguranca"
+
+      SPRING_RABBITMQ_HOST: "host.docker.internal"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://host.docker.internal:5432/dbseguranca"
+
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    depends_on:
+      whatsapp-api:
+        condition: service_healthy
+
+    networks:
+      - seguranca-network
+
+volumes:
+  whatsapp_instances:
+
+networks:
+  seguranca-network:
+    driver: bridge

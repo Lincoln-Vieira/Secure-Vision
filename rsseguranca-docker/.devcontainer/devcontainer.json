@@ -1,0 +1,20 @@
+﻿{
+  "name": "Rust & GStreamer Dev Container",
+  "image": "rsseguranca-docker-app:latest",
+  "runArgs": [
+    "-e", "DISPLAY=host.docker.internal:0"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "serayuzgur.crates"
+      ]
+    }
+  },
+  "remoteUser": "root",
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind"
+}
+

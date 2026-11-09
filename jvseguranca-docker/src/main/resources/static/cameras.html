@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secure Vision | Câmeras</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #071510;
+        color: #f1f5f3;
+        display: flex;
+        min-height: 100vh;
+      }
+
+      aside {
+        width: 240px;
+        flex-shrink: 0;
+        background: #091d16;
+        border-right: 1px solid #183b2e;
+        padding: 28px 18px;
+      }
+
+      .logo {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 40px;
+      }
+
+      .logo span {
+        color: #35d6a0;
+      }
+
+      nav a {
+        display: block;
+        color: #a8bbb2;
+        text-decoration: none;
+        padding: 13px 14px;
+        margin-bottom: 7px;
+        border-radius: 7px;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      nav a:hover,
+      nav a.active {
+        background: #123c2c;
+        color: #35dda6;
+      }
+
+      main {
+        flex: 1;
+        min-width: 0;
+        padding: 35px;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+
+      header p {
+        color: #8ca69a;
+        margin-top: 8px;
+        font-size: 14px;
+      }
+
+      .grade {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .card {
+        background: #10251c;
+        border: 1px solid #1b4030;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .preview {
+        height: 190px;
+        background: #091811;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 12px;
+        color: #8ca69a;
+      }
+
+      .preview strong {
+        color: #f1f5f3;
+        font-size: 18px;
+      }
+
+      .icone {
+        font-size: 35px;
+      }
+
+      .info {
+        padding: 20px;
+      }
+
+      .info p {
+        color: #91a89c;
+        font-size: 13px;
+        margin-top: 7px;
+      }
+
+      .badge {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 6px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+      }
+
+      .ativo {
+        background: #123c2c;
+        color: #35dda6;
+      }
+
+      .inativo {
+        background: #392d18;
+        color: #e8bd6d;
+      }
+
+      .mensagem {
+        color: #8ca69a;
+        padding: 20px;
+        grid-column: 1 / -1;
+      }
+
+      @media (max-width: 850px) {
+        .grade {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 650px) {
+        body {
+          display: block;
+        }
+
+        aside {
+          width: 100%;
+          padding: 18px;
+        }
+
+        .logo {
+          margin-bottom: 15px;
+        }
+
+        nav {
+          display: flex;
+          flex-wrap: wrap;
+        }
+
+        nav a {
+          padding: 10px;
+          margin: 3px;
+        }
+
+        main {
+          padding: 22px;
+        }
+
+        header {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <aside>
+      <div class="logo">SECURE <span>VISION</span></div>
+
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="cameras.html" class="active">Câmeras</a>
+        <a href="monitoramento.html">Monitoramento</a>
+        <a href="alertas.html">Alertas</a>
+        <a href="configuracoes.html">Configurações</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+        <a href="#" onclick="return realizarLogout(event)">Sair</a>
+      </nav>
+    </aside>
+
+    <main>
+      <header>
+        <div>
+          <h1>Câmeras</h1>
+          <p>Visualize e acompanhe os dispositivos cadastrados.</p>
+        </div>
+      </header>
+
+      <section class="grade" id="lista-cameras">
+        <p class="mensagem">Carregando câmeras...</p>
+      </section>
+    </main>
+
+    <script>
+      async function carregarCameras() {
+        const lista = document.getElementById("lista-cameras");
+
+        try {
+          const resposta = await fetch("/cameras", {
+            method: "GET",
+            credentials: "same-origin",
+          });
+
+          if (resposta.status === 401 || resposta.status === 403) {
+            lista.innerHTML =
+              '<p class="mensagem">Sua sessão expirou. Faça login novamente.</p>';
+            return;
+          }
+
+          if (!resposta.ok) {
+            throw new Error("Não foi possível carregar as câmeras.");
+          }
+
+          const cameras = await resposta.json();
+
+          lista.innerHTML = "";
+
+          if (cameras.length === 0) {
+            lista.innerHTML =
+              '<p class="mensagem">Nenhuma câmera cadastrada para este usuário.</p>';
+            return;
+          }
+
+          cameras.forEach((camera) => {
+            const numero = String(camera.nu_seg_camera).padStart(2, "0");
+
+            const ativo = Number(camera.nu_seg_status_servico) === 1;
+
+            const statusTexto = ativo ? "Serviço ativo" : "Serviço inativo";
+
+            const classeStatus = ativo ? "ativo" : "inativo";
+
+            const cartao = document.createElement("article");
+            cartao.className = "card";
+
+            cartao.innerHTML = `
+            <div class="preview">
+              <div class="icone">▣</div>
+              <strong>Câmera ${numero}</strong>
+              <span>${statusTexto}</span>
+            </div>
+
+            <div class="info">
+              <strong>Câmera cadastrada</strong>
+              <p>Identificação: CAM-${numero}</p>
+              <p>Status no banco: ${camera.nu_seg_status_servico}</p>
+              <span class="badge ${classeStatus}">${statusTexto}</span>
+            </div>
+          `;
+
+            lista.appendChild(cartao);
+          });
+        } catch (erro) {
+          lista.innerHTML =
+            '<p class="mensagem">Erro ao carregar as câmeras. Verifique a conexão com o servidor.</p>';
+
+          console.error(erro);
+        }
+      }
+
+      carregarCameras();
+    </script>
+      <script src="/logout.js"></script>
+</body>
+</html>
+
+

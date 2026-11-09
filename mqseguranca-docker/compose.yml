@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: mqseguranca
+    ports:
+      - "5672:5672"    # Porta de comunicação AMQP (Aplicações)
+      - "15672:15672"  # Porta da interface web de gerenciamento  http://localhost:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: admseguranca
+      RABBITMQ_DEFAULT_PASS: admseguranca
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq  # ✅ Caminho correto retornado
+    restart: always
+
+volumes:
+  rabbitmq_data:

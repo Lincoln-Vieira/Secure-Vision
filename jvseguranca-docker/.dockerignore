@@ -1,0 +1,12 @@
+.git
+.github
+.vscode
+target
+.azure
+*.log
+*.iml
+.idea
+Dockerfile*
+compose.yml
+devcontainer.json
+WhatsAppListener.java

@@ -1,0 +1,32 @@
+﻿# Credenciais e configurações locais
+.env
+.env.*
+!.env.example
+**/application.properties
+
+# Arquivos gerados
+**/target/
+**/build/
+**/dist/
+**/__pycache__/
+**/.venv/
+**/venv/
+**/node_modules/
+
+# Backups e temporários
+backup-seguranca-20261101-172012/
+**/backup-antes-atualizacao/
+*.backup
+*.backup-*
+test_output.png
+
+# Git
+.git/
+
+# Arquivos temporários do projeto
+jvseguranca-docker/Fila
+jvseguranca-docker/irm
+jvseguranca-docker/json/
+jvseguranca-docker/payload*.json
+jvseguranca-docker/.azure/
+rsseguranca-docker/rustup

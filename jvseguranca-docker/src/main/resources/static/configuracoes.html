@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secure Vision | Configurações</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+      body {
+        background: #071510;
+        color: #f1f5f3;
+        display: flex;
+        min-height: 100vh;
+      }
+      aside {
+        width: 240px;
+        flex-shrink: 0;
+        background: #091d16;
+        border-right: 1px solid #183b2e;
+        padding: 28px 18px;
+      }
+      .logo {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 40px;
+      }
+      .logo span {
+        color: #35d6a0;
+      }
+      nav a {
+        display: block;
+        color: #a8bbb2;
+        text-decoration: none;
+        padding: 13px 14px;
+        margin-bottom: 7px;
+        border-radius: 7px;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+      nav a:hover,
+      nav a.active {
+        background: #123c2c;
+        color: #35dda6;
+      }
+      main {
+        flex: 1;
+        min-width: 0;
+        padding: 35px;
+      }
+      header {
+        margin-bottom: 30px;
+      }
+      header p {
+        color: #8ca69a;
+        margin-top: 8px;
+        font-size: 14px;
+      }
+      .painel {
+        max-width: 800px;
+        background: #10251c;
+        border: 1px solid #1b4030;
+        border-radius: 10px;
+        padding: 25px;
+      }
+      .grupo {
+        padding: 18px 0;
+        border-bottom: 1px solid #244033;
+      }
+      .grupo:last-child {
+        border: 0;
+      }
+      .grupo p {
+        color: #9aafa4;
+        font-size: 13px;
+        margin-top: 7px;
+        line-height: 1.5;
+      }
+      .botao {
+        margin-top: 20px;
+        padding: 11px 18px;
+        border: 0;
+        border-radius: 7px;
+        background: #35d6a0;
+        color: #06150f;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .botao:hover {
+        background: #63e7bb;
+      }
+      @media (max-width: 650px) {
+        body {
+          display: block;
+        }
+        aside {
+          width: 100%;
+          padding: 18px;
+        }
+        .logo {
+          margin-bottom: 15px;
+        }
+        nav {
+          display: flex;
+          flex-wrap: wrap;
+        }
+        nav a {
+          padding: 10px;
+          margin: 3px;
+        }
+        main {
+          padding: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <aside>
+      <div class="logo">SECURE <span>VISION</span></div>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="cameras.html">Câmeras</a>
+        <a href="monitoramento.html">Monitoramento</a>
+        <a href="alertas.html">Alertas</a>
+        <a href="configuracoes.html" class="active">Configurações</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+        <a href="#" onclick="return realizarLogout(event)">Sair</a>
+      </nav>
+    </aside>
+    <main>
+      <header>
+        <h1>Configurações</h1>
+        <p>Consulte as opções de configuração da plataforma.</p>
+      </header>
+      <section class="painel">
+        <div class="grupo">
+          <strong>Preferências do sistema</strong>
+          <p>
+            As preferências poderão ser configuradas quando a integração com o
+            backend estiver disponível.
+          </p>
+        </div>
+        <div class="grupo">
+          <strong>Notificações</strong>
+          <p>
+            As opções de notificações estão reservadas para uma próxima etapa do
+            projeto.
+          </p>
+        </div>
+        <div class="grupo">
+          <strong>Conta do usuário</strong>
+          <p>
+            O gerenciamento de dados da conta depende da implementação da
+            autenticação.
+          </p>
+        </div>
+        <button
+          class="botao"
+          type="button"
+          onclick="
+            alert(
+              'As configurações serão disponibilizadas em uma próxima etapa.',
+            )
+          "
+        >
+          Salvar configurações
+        </button>
+      </section>
+    </main>
+      <script src="/logout.js"></script>
+</body>
+</html>
+
+

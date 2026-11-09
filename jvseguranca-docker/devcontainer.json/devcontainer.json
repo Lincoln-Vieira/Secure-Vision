@@ -1,0 +1,15 @@
+{
+  "name": "JvSeguranca Docker",
+  "dockerComposeFile": "../compose.yml",
+  "service": "spring_app",
+  "workspaceFolder": "/app",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-spring-boot-dashboard"
+      ]
+    }
+  },
+  "forwardPorts": [8085]
+}

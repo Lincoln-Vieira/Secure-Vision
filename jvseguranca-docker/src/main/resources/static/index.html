@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Secure Vision | Segurança Inteligente</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background: #071510;
+        color: #f1f5f3;
+        min-height: 100vh;
+      }
+
+      header {
+        min-height: 82px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 8%;
+        border-bottom: 1px solid #1b3930;
+        background: rgba(5, 18, 14, 0.97);
+      }
+
+      .logo {
+        font-size: 23px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        color: white;
+        text-decoration: none;
+      }
+
+      .logo span {
+        color: #35d6a0;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+      }
+
+      nav a {
+        color: #c3d2cc;
+        text-decoration: none;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      nav a:hover {
+        color: #35d6a0;
+      }
+
+      .login-button {
+        background: #35d6a0;
+        color: #06150f;
+        padding: 12px 22px;
+        border-radius: 7px;
+        font-weight: bold;
+      }
+
+      nav a.login-button:hover {
+        background: #63e7bb;
+        color: #06150f;
+      }
+
+      .hero {
+        min-height: calc(100vh - 82px);
+        display: flex;
+        align-items: center;
+        padding: 70px 8%;
+
+        background:
+          linear-gradient(
+            90deg,
+            rgba(4, 17, 12, 0.94) 0%,
+            rgba(4, 17, 12, 0.78) 48%,
+            rgba(4, 17, 12, 0.45) 100%
+          ),
+          url("imagem_secure.png");
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .hero-content {
+        max-width: 700px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .tag {
+        display: inline-block;
+        color: #45dfa9;
+        border: 1px solid #267d5d;
+        background: rgba(30, 160, 110, 0.1);
+        padding: 9px 15px;
+        border-radius: 30px;
+        font-size: 12px;
+        letter-spacing: 1px;
+        margin-bottom: 28px;
+      }
+
+      h1 {
+        font-size: clamp(38px, 5vw, 64px);
+        line-height: 1.12;
+        margin-bottom: 24px;
+      }
+
+      h1 span {
+        color: #39d99f;
+      }
+
+      .description {
+        color: #d0ded7;
+        font-size: 17px;
+        line-height: 1.8;
+        max-width: 570px;
+        margin-bottom: 34px;
+      }
+
+      .actions {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .primary-button,
+      .secondary-button {
+        display: inline-block;
+        padding: 15px 25px;
+        border-radius: 7px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.2s;
+      }
+
+      .primary-button {
+        background: #35d6a0;
+        color: #06150f;
+      }
+
+      .primary-button:hover {
+        background: #63e7bb;
+      }
+
+      .secondary-button {
+        border: 1px solid #41675a;
+        color: #e0eee8;
+        background: rgba(5, 18, 14, 0.45);
+      }
+
+      .secondary-button:hover {
+        background: #153328;
+      }
+
+      .features {
+        display: flex;
+        gap: 35px;
+        flex-wrap: wrap;
+        margin-top: 55px;
+      }
+
+      .feature {
+        border-left: 2px solid #35d6a0;
+        padding-left: 13px;
+      }
+
+      .feature strong {
+        display: block;
+        font-size: 16px;
+        margin-bottom: 6px;
+      }
+
+      .feature small {
+        color: #c0d0c8;
+        font-size: 12px;
+      }
+
+      .acesso {
+        padding: 65px 8%;
+        background: #0b1b15;
+        border-top: 1px solid #1b3930;
+      }
+
+      .acesso h2 {
+        font-size: 30px;
+        margin-bottom: 15px;
+      }
+
+      .acesso p {
+        color: #a9bcb3;
+        line-height: 1.7;
+        max-width: 650px;
+        margin-bottom: 25px;
+      }
+
+      .acesso-links {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      footer {
+        padding: 25px 8%;
+        text-align: center;
+        color: #789187;
+        font-size: 12px;
+        border-top: 1px solid #1b3930;
+      }
+
+      footer a {
+        color: #35d6a0;
+        text-decoration: none;
+        margin: 0 8px;
+      }
+
+      @media (max-width: 700px) {
+        header {
+          padding: 18px 5%;
+          flex-wrap: wrap;
+          gap: 18px;
+        }
+
+        nav {
+          gap: 15px;
+          flex-wrap: wrap;
+        }
+
+        .hero {
+          padding: 55px 7%;
+          background-position: center;
+        }
+
+        .features {
+          gap: 22px;
+        }
+
+        .acesso {
+          padding: 45px 7%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <a href="index.html" class="logo">SECURE <span>VISION</span></a>
+
+            <nav>
+    <a href="index.html">Início</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="contato.html">Contato</a>
+    <a href="cadastro.html">Criar conta</a>
+    <a href="login.html" class="login-button">Entrar</a>
+</nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <div class="tag">TECNOLOGIA E MONITORAMENTO INTELIGENTE</div>
+
+          <h1>
+            Segurança inteligente para um
+            <span>futuro mais seguro.</span>
+          </h1>
+
+          <p class="description">
+            Monitore ambientes, acompanhe câmeras e receba alertas inteligentes
+            em uma plataforma desenvolvida para oferecer mais controle,
+            praticidade e segurança.
+          </p>
+
+          <div class="actions">
+            <a href="login.html" class="primary-button">
+              Acessar plataforma →
+            </a>
+
+            <a href="sobre.html" class="secondary-button">
+              Conheça o sistema
+            </a>
+          </div>
+
+          <div class="features">
+            <div class="feature">
+              <strong>Monitoramento</strong>
+              <small>Acompanhamento de câmeras</small>
+            </div>
+
+            <div class="feature">
+              <strong>Alertas</strong>
+              <small>Notificações inteligentes</small>
+            </div>
+
+            <div class="feature">
+              <strong>Controle</strong>
+              <small>Gestão centralizada</small>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="acesso">
+        <h2>Conheça a Secure Vision</h2>
+
+        <p>
+          Explore nossa plataforma, conheça os recursos disponíveis e descubra
+          como a tecnologia pode ajudar no acompanhamento e gerenciamento da
+          segurança.
+        </p>
+
+        <div class="acesso-links">
+          <a href="sobre.html" class="secondary-button">Sobre a plataforma</a>
+          <a href="contato.html" class="secondary-button">Fale conosco</a>
+          <a href="cadastro.html" class="primary-button">Criar minha conta</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © 2026 Secure Vision — Sistema de Segurança Inteligente
+
+      <p style="margin-top: 12px">
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+        <a href="login.html">Entrar</a>
+      </p>
+    </footer>
+  </body>
+</html>
+

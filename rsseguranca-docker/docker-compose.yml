@@ -1,0 +1,12 @@
+services:
+  app:
+    build: .
+    container_name: rsseguranca_app
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://admseguranca:admseguranca@host.docker.internal:5432/dbseguranca
+      AMQP_ADDR: amqp://admseguranca:admseguranca@host.docker.internal:5672/%2f
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
